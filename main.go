@@ -14,13 +14,21 @@ import (
 
 var (
 	dsn string
+	Version = "0.0.1"
 )
 
 func main() {
 	var port int
+	var showVersion bool
 	flag.IntVar(&port, "port", 5000, "http listen port number")
 	flag.StringVar(&dsn, "dsn", "root:@tcp(127.0.0.1:3306)/?charset=utf8", "MySQL DSN")
+	flag.BoolVar(&showVersion, "version", false, "show version")
 	flag.Parse()
+	if showVersion {
+		fmt.Printf("version %s (%s)\n", Version, Revision)
+		return
+	}
+
 	log.Printf("Listing port %d", port)
 	log.Printf("dsn %s", dsn)
 
