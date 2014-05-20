@@ -57,7 +57,7 @@ Options
 How to build
 ------------
 
-    $ go install github.com/fujiwara/mysql-slave-healthcheck-agent
+    $ go get github.com/fujiwara/mysql-slave-healthcheck-agent
 
 How to build (cross compile)
 ------------
