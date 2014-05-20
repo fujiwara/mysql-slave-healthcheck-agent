@@ -1,5 +1,7 @@
 GIT_REV := $(shell git rev-parse HEAD)
 
 all:
-	echo "package main\nvar Revision = \"$(GIT_REV)\"\n" > revision.go
-	go build
+	sed -i.bak -e "s/HEAD/$(GIT_REV)/" revision.go
+	gox -os="linux darwin" -arch="amd64 386" -output "pkg/{{.OS}}_{{.Arch}}/{{.Dir}}"
+	git checkout revision.go
+	rm revision.go.bak

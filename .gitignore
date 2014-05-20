@@ -22,5 +22,4 @@ _testmain.go
 *.exe
 *.test
 
-# revision.go is auto updated by Makefile
-revision.go
+pkg/*

@@ -1,3 +1,3 @@
 package main
-var Revision = "null"
+var Revision = "HEAD"
 
