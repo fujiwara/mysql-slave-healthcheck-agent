@@ -46,6 +46,7 @@ $ curl localhost:5000 | jq .
 
 * The query "SHOW SLAVE STATUS" was succeeded, return HTTP status 200 and JSON.
 * If could not connect to the MySQL or the MySQL is not a slave, return HTTP status 500.
+* If slave is not running, return HTTP status 500. When the option -fail-slave-not-ruuning=false is specified, return 200.
 
 Options
 -------
@@ -54,6 +55,7 @@ Options
 * -dsn : Data Source Name for MySQL. default "root:@tcp(127.0.0.1:3306)/?charset=utf8"
   See also https://github.com/go-sql-driver/mysql#dsn-data-source-name
   mysql's user must have a privilege of "REPLICATION CLIENT".
+* --fail-slave-not-ruuning=true: returns 500 if the slave is not running
 
 How to build
 ------------

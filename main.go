@@ -15,6 +15,7 @@ import (
 var (
 	dsn string
 	Version = "0.0.1"
+	failSlaveNotRunning bool
 )
 
 func main() {
@@ -23,6 +24,7 @@ func main() {
 	flag.IntVar(&port, "port", 5000, "http listen port number")
 	flag.StringVar(&dsn, "dsn", "root:@tcp(127.0.0.1:3306)/?charset=utf8", "MySQL DSN")
 	flag.BoolVar(&showVersion, "version", false, "show version")
+	flag.BoolVar(&failSlaveNotRunning, "fail-slave-not-ruuning", true, "returns 500 if the slave is not running");
 	flag.Parse()
 	if showVersion {
 		fmt.Printf("version %s (%s)\n", Version, Revision)
@@ -81,6 +83,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			slaveInfo[name] = vi
 		}
+	}
+	if failSlaveNotRunning && slaveInfo["Seconds_Behind_Master"] == "" {
+		serverError(w, errors.New("Slave is not running."))
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
