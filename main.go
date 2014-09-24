@@ -25,7 +25,7 @@ func main() {
 	flag.BoolVar(&showVersion, "version", false, "show version")
 	flag.Parse()
 	if showVersion {
-		fmt.Printf("version %s (%s)\n", Version, Revision)
+		fmt.Printf("version %s\n", Version)
 		return
 	}
 
